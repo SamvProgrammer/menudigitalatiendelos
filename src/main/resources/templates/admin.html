@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="ie ie9"> <![endif]-->
+<html xmlns:th="www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords"
+	content="pizza, delivery food, fast food, sushi, take away, chinese, italian food">
+<meta name="description" content="">
+<meta name="author" content="Ansonika">
+<title>Administración</title>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<link rel="stylesheet" th:href="@{~/css/panel.css}">
+<!-- Favicons-->
+<link rel="shortcut icon" th:href="@{~/img/favicon.ico}" type="image/x-icon">
+<link rel="apple-touch-icon" type="image/x-icon"
+	th:href="@{~/img/apple-touch-icon-57x57-precomposed.png}">
+<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+	th:href="@{~/img/apple-touch-icon-72x72-precomposed.png}">
+<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+	th:href="@{~/img/apple-touch-icon-114x114-precomposed.png}">
+<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+	th:href="@{~/img/apple-touch-icon-144x144-precomposed.png}">
+
+<!-- GOOGLE WEB FONT -->
+<link
+	href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,300,300italic'
+	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Gochi+Hand'
+	rel='stylesheet' type='text/css'>
+
+<!-- BASE CSS -->
+<link th:href="@{~/css/base.css}" rel="stylesheet">
+
+<!-- SPECIFIC CSS -->
+<link th:href="@{~/css/skins/square/grey.css}" rel="stylesheet">
+<link th:href="@{~/css/admin.css}" rel="stylesheet">
+<link th:href="@{~/css/bootstrap3-wysihtml5.min.css}" rel="stylesheet">
+<link th:href="@{~/css/dropzone.css}" rel="stylesheet">
+
+<!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+</head>
+
+<body>
+
+
+
+	<div id="preloader">
+		<div class="sk-spinner sk-spinner-wave" id="status">
+			<div class="sk-rect1"></div>
+			<div class="sk-rect2"></div>
+			<div class="sk-rect3"></div>
+			<div class="sk-rect4"></div>
+			<div class="sk-rect5"></div>
+		</div>
+	</div>
+	<!-- End Preload -->
+
+	<div th:replace="layout/panel :: panel"></div>
+	<header th:replace="layout/cabecera :: cabecera"></header>
+
+
+	<!-- SubHeader =============================================== -->
+
+	<!-- End SubHeader ============================================ -->
+
+	<div id="position" style="MARGIN-TOP: 50px;">
+		<div class="container">
+			<ul>
+				<li><a href="#0">inicio</a></li>
+				<li><a href="#0">Administración</a></li>
+				<li>Altas de restaurantes</li>
+			</ul>
+			<a href="#0" class="search-overlay-menu-btn"><i
+				class="icon-search-6"></i> Buscar</a>
+		</div>
+	</div>
+	<!-- Position -->
+
+	<!-- 	<!-- Content ================================================== -->
+
+	<div class="container " id="contenedorFormulario" hidden>
+		<div class="row">
+			<div class="col text-right">
+				<button type="button" class="btn btn-default" onClick="regresar()">
+					<i class="icon-back"></i> Regresar
+				</button>
+			</div>
+		</div>
+		<div id="tabs" class="tabs">
+			<nav>
+				<ul>
+					<li><a href="#section-1" class="icon-profile"><span>Información
+								principal</span></a></li>
+					<li><a href="#section-2" class="icon-menut-items"><span>Menú</span></a>
+					</li>
+				</ul>
+			</nav>
+			<div class="content">
+
+				<section id="section-1">
+					<div class="indent_title_in">
+						<i class="icon_house_alt"></i>
+						<h3>Descripción general del restaurante</h3>
+						<p>En esta sección se pretende abordar la alta de los
+							restaurantes involucrados para poder administrar sus fotos, el
+							lugar donde se encuentran, numeros y todo relacionado al
+							establecimiento.</p>
+					</div>
+
+					<div class="wrapper_indent">
+						<div class="form-group">
+							<label>Nombre del restaurante <span
+								style="color: #ff6c6c">(*Campo obligatorio)</span></label> <input
+								class="form-control" name="restaurant_name" id="restaurant_name"
+								type="text" required>
+						</div>
+						<div class="form-group">
+							<label>Descripción del restaurante <span
+								style="color: #ff6c6c">(*Campo obligatorio)</span></label>
+							<textarea class="wysihtml5 form-control"
+								id="descripcionRestaurante"
+								placeholder="Ingrese descripción ..." style="height: 200px;"></textarea>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Telefono</label> <input type="text" id="Telephone"
+										name="Telephone" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Correo eletrónico</label> <input type="email" id="Email"
+										name="Email" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<hr class="styled_2">
+
+					<div class="indent_title_in">
+						<i class="icon_pin_alt"></i>
+						<h3>Dirección</h3>
+						<p>Ingrese las coordenadas del restaurante.</p>
+					</div>
+					<div class="wrapper_indent">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>País</label> <select class="form-control" name="country"
+										id="country">
+										<option value="" selected>Seleccione tu ciudad</option>
+										<option value="MEX">México</option>
+										<option value="EUA">Estados unidos</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Dirección</label> <input type="text" id="street_1"
+										name="street_1" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>Direccipión 2</label> <input type="text" id="street_2"
+										name="street_2" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label>Ciudad</label> <input type="text" id="city_booking"
+										name="city_booking" class="form-control">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label>Estado</label> <input type="text" id="state_booking"
+										name="state_booking" class="form-control">
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label>Código postal</label> <input type="text"
+										id="postal_code" name="postal_code" class="form-control">
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<hr class="styled_2">
+
+					<div class="indent_title_in">
+						<i class="icon-calendar"></i>
+						<h3>Horarios</h3>
+						<p>Ingrese el horario del restaurante.</p>
+					</div>
+					<div class="wrapper_indent" id="horariosDiv">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-check">
+									<input onChange="cambiando(this)" type="checkbox" class="form-check-input"
+										id="lunescheck"> 
+										 
+										<label class="form-check-label"
+										for="lunescheck">LUNES  <span style="color:#EC0000">(Cerrado)</span>   </label>
+								</div>
+								
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timelunes1">
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timelunes2">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-check">
+									<input type="checkbox" onChange="cambiando(this)" class="form-check-input"
+										id="martescheck"> <label class="form-check-label"
+										for="martescheck">MARTES  <span style="color:#EC0000">(Cerrado)</span></label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timemartes1">
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timemartes2">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-check">
+									<input type="checkbox" onChange="cambiando(this)" class="form-check-input"
+										id="miercolesCheck"> <label class="form-check-label"
+										for="miercolesCheck">MIERCOLES  <span style="color:#EC0000">(Cerrado)</span></label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timemiercoles1">
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timemiercoles2">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-check">
+									<input type="checkbox" onChange="cambiando(this)" class="form-check-input"
+										id="juevesCheck"> <label class="form-check-label"
+										for="juevesCheck">JUEVES  <span style="color:#EC0000">(Cerrado)</span></label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timejueves1">
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timejueves2">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-check">
+									<input type="checkbox" onChange="cambiando(this)" class="form-check-input"
+										id="viernesCheck"> <label class="form-check-label"
+										for="viernesCheck">VIERNES  <span style="color:#EC0000">(Cerrado)</span></label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timeviernes1">
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timeviernes2">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-check">
+									<input type="checkbox" onChange="cambiando(this)" class="form-check-input"
+										id="sabadoCheck"> <label class="form-check-label"
+										for="sabadoCheck">SABADO  <span style="color:#EC0000">(Cerrado)</span></label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timesabado1">
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control"  id="timesabado2">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-check">
+									<input type="checkbox" onChange="cambiando(this)" class="form-check-input"
+										id="domingoCheck"> <label class="form-check-label"
+										for="domingoCheck">DOMINGO  <span style="color:#EC0000">(Cerrado)</span></label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timedomingo1">
+							</div>
+							<div class="col-md-4">
+								<input type="time" class="form-control" id="timedomingo2">
+							</div>
+						</div>
+					</div>
+
+					<hr class="styled_2">
+					<div class="wrapper_indent">
+
+						<button class="btn_1" id="cargarPrincipal">Guardar</button>
+					</div>
+
+					<div hidden id="contenedorImagenes">
+						<hr class="styled_2">
+						<div class="indent_title_in">
+							<i class="icon_images"></i>
+							<h3>
+								Logo y Fotos del restaurante (<span id="nombreRestauranteSpan"></span>)
+							</h3>
+							<p>Debe seleccionar una foto y fotos más representativas de
+								comida del restaurante.</p>
+						</div>
+
+						<div class="wrapper_indent add_bottom_45">
+							<div class="form-group">
+								<label>Cargar logo del restaurante</label>
+								<div id="logo_picture" class="dropzone">
+									<input name="file" type="file" id="logoRestaurant">
+									<div class="dz-default dz-message">
+										<span>Click o Arrastra las imagenes en el recuadro.</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label>Cargar fotos del restaurante</label>
+								<div id="photos" class="dropzone">
+									<input name="file" type="file" multiple>
+									<div class="dz-default dz-message">
+										<span>Click o Arrastra las imagenes en el recuadro.</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</section>
+
+				<section id="section-2">
+					<div class="indent_title_in">
+						<i class="icon_document_alt"></i>
+						<h3>Editar lista del menú</h3>
+						<p>En esta sección debe seleccionar todo referente al cátalogo
+							del menú del restaurante.</p>
+					</div>
+
+
+					<div class="form-group">
+						<label>Categorias del menú</label> <input type="text"
+							name="menu_category" class="form-control" placeholder="Categoría"
+							id="nombreCategoria">
+					</div>
+					<div class="menu-item-section clearfix">
+						<h4>PRODUCTO 1</h4>
+					</div>
+
+					<div class="strip_menu_items">
+						<div class="row">
+
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group">
+											<label>NOMBRE PRODUCTO</label> <input type="text"
+												name="menu_item_title" class="form-control"
+												id="nombreProducto"> <input type="hidden"
+												id="codigoProducto">
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label>PRECIO</label> <input type="number"
+												name="menu_item_title_price" class="form-control"
+												id="precioProducto">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label>DESCRIPCION CORTA</label> <input type="text"
+										name="menu_item_description" class="form-control"
+										id="descripcionProducto">
+								</div>
+
+
+								<div class="form-group">
+									<label>OPCIONES DE PRODUCTO</label>
+									<div class="table-responsive">
+										<table class="table table-striped edit-options">
+											<tbody id="bodyRadio">
+
+											</tbody>
+										</table>
+									</div>
+
+									<div class="btn-group" style="position: absolute; right: 0;"
+										role="group" aria-label="Basic example">
+										<button type="button" class="btn btn-secondary"
+											onClick="agregarOpcionProducto()">Agregar</button>
+										<button onClick="eliminarOpcionProducto()" type="button"
+											class="btn btn-danger">Eliminar</button>
+
+									</div>
+
+								</div>
+
+								<div class="form-group">
+									<label>EXTRAS DEL PRODUCTO</label>
+									<div class="table-responsive">
+										<table class="table table-striped notifications">
+											<tbody id="bodyCheck">
+
+
+											</tbody>
+										</table>
+									</div>
+									<div class="btn-group" style="position: absolute; right: 0;"
+										role="group" aria-label="Basic example">
+										<button type="button" class="btn btn-secondary"
+											onClick="agregarMultiProducto()">Agregar</button>
+										<button onClick="eliminarMultiProducto()" type="button"
+											class="btn btn-danger">Eliminar</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<hr class="styled_2">
+
+						<div class="menu-item-pic dropzone" id="verimagenesProductos"
+							hidden>
+							<input name="file" type="file">
+							<div class="dz-default dz-message">
+								<span>Click o Arrastrar <br>las imagenes aqui
+								</span>
+							</div>
+						</div>
+
+						<hr class="styled_2">
+
+						<div class="btn-group" role="group" aria-label="Basic example">
+							<button type="button" class="btn btn-success"
+								id="btnGuardarProducto" onClick="guardaProducto(this);">Guardar</button>
+							<button type="button" style="display: none;"
+								class="btn btn-success" id="btnActualizarProducto"
+								onClick="actualizarProducto(this);">Actualizar</button>
+							<button type="button" class="btn btn-default"
+								onClick="nuevaCategoria();">Nueva categoria</button>
+
+						</div>
+
+
+						<div class="panel panel-primary">
+							<!-- Default panel contents -->
+							<div class="panel-heading">PRODUCTOS DEL RESTAURANTE</div>
+
+
+							<table class="table table-striped" id="tablaProductos">
+								<thead>
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Nombre</th>
+										<th scope="col">Precio</th>
+										<th scope="col">Categoría</th>
+										<th scope="col">Opciones</th>
+									</tr>
+								</thead>
+								<tbody id="tablaBodyProductos">
+									<!-- 							   seccion de los productos del restaurante -->
+								</tbody>
+							</table>
+
+
+						</div>
+				</section>
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="container" id="contenedorPrincipal">
+
+		<div class="row text-center">
+
+			<div class="col">
+				<p style="font-size: 30px">Restaurantes registrados</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col text-right">
+				<button type="button" class="btn btn-default"
+					onClick="nuevoRestaurante()">
+					<i class="icon-list-add"></i>
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Nombre</th>
+							<th>Descripción</th>
+							<th>Correo Electrónico</th>
+							<th>Teléfono</th>
+							<th>Latitud y Longitud</th>
+							<th style="width: 200px; text-align: center">Opciones</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr th:each="item : ${restaurantes}">
+							<td scope="row" th:text="${item.id}"></td>
+							<td th:text="${item.nombre}"></td>
+							<td th:text="${item.descripcion}"></td>
+							<td th:text="${item.correo}"></td>
+							<td th:text="${item.telefono}"></td>
+							<td th:text="${item.direccion1}"></td>
+
+
+
+							<td style="text-align: center">
+								<button class="btn btn-default"
+									th:attr="onclick=|modificarRestaurante('${item.id}')|">
+									<i class=" icon-spin3"></i>
+								</button>
+								<button class="btn btn-danger"
+									th:attr="onclick=|eliminarRestaurante('${item.id}',this)|">
+									<i class="icon-user-delete"></i>
+								</button>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<div th:if="${restaurantes.size() == 0}"
+					class="alert alert-danger text-center" role="alert">
+					<strong></strong> Sin registro en las tabla
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</div>
+
+
+	<footer th:replace="layout/footer :: footer"></footer>
+
+
+	<div class="layer"></div>
+	<!-- Mobile menu overlay mask -->
+
+	<!-- Login modal -->
+	<div class="modal fade" id="login_2" tabindex="-1" role="dialog"
+		aria-labelledby="myLogin" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content modal-popup">
+				<a href="#" class="close-link"><i class="icon_close_alt2"></i></a>
+				<form action="#" class="popup-form" id="myLogin">
+					<div class="login_icon">
+						<i class="icon_lock_alt"></i>
+					</div>
+					<input type="text" class="form-control form-white"
+						placeholder="Username"> <input type="text"
+						class="form-control form-white" placeholder="Password">
+					<div class="text-left">
+						<a href="#">Forgot Password?</a>
+					</div>
+					<button type="submit" class="btn btn-submit">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- End modal -->
+
+
+	<!-- Register modal -->
+	<div class="modal fade" id="register" tabindex="-1" role="dialog"
+		aria-labelledby="myRegister" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content modal-popup">gola</div>
+		</div>
+	</div>
+	<!-- End Register modal -->
+
+
+
+
+	<!-- Modal -->
+
+
+	</div>
+
+	<!-- Search Menu -->
+	<div class="search-overlay-menu">
+		<span class="search-overlay-close"><i class="icon_close"></i></span>
+		<form role="search" id="searchform" method="get">
+			<input value="" name="q" type="search" placeholder="Search..." />
+			<button type="submit">
+				<i class="icon-search-6"></i>
+			</button>
+		</form>
+	</div>
+	<!-- End Search Menu -->
+
+	<!-- COMMON SCRIPTS -->
+	<script th:src="@{~/js/jquery-2.2.4.min.js}"></script>
+	<script th:src="@{~/js/common_scripts_min.js}"></script>
+	<script th:src="@{~/js/functions.js}"></script>
+	<script th:src="@{~/assets/validate.js}"></script>
+
+	<!-- Specific scripts -->
+	<script th:src="@{~/js/tabs.js}"></script>
+	<script>
+		new CBPFWTabs(document.getElementById('tabs'));
+	</script>
+
+	<script th:src="@{~/js/bootstrap3-wysihtml5.min.js}"></script>
+	<script th:src="@{~/js/admin.js}">
+	</script>
+	<script th:src="@{~/js/dropzone.min.js}"></script>
+	<script th:inline="javascript">
+
+		if ($('.dropzone').length > 0) {
+			Dropzone.autoDiscover = false;
+			// 		$("#photos").dropzone({
+			// 			url: "upload",
+			// 			addRemoveLinks: true
+			// 		});
+
+			// 		$("#logo_picture").dropzone({
+			// 			url: "upload",
+			// 			maxFiles: 1,
+			// 			addRemoveLinks: true
+			// 		});
+
+			// 		$(".menu-item-pic").dropzone({
+			// 			url: "upload",
+			// 			maxFiles: 1,
+			// 			addRemoveLinks: true
+			// 		});
+		}
+
+
+
+        var myDropzoneLogo;
+        var myDropzonephotos;
+		var id_restaurante;
+		var nuevaCategoriaBool = true;
+		var listaProducto = [];
+		var aleatorio = "";
+		var categoriasArreglo = [];
+		
+		var arregloCategorias = [];
+
+		$("#cargarPrincipal").on('click', function () {
+
+
+
+			var link = /*[[@{/api/restaurantes}]]*/'';
+
+			var nombre = $("#restaurant_name").val();
+			var descripcion = $("#descripcionRestaurante").val();
+			var telefono = $("#Telephone").val();
+			var correo = $("#Email").val();
+			var pais = $("#descripcionRestaurante").val();
+			var ciudad = $("#country").val();
+			var calle1 = $("#street_1").val();
+			var calle2 = $("#street_2").val();
+			var ciudad = $("#city_booking").val();
+			var estado = $("#state_booking").val();
+			var codigopostal = $("#postal_code").val();
+			var logo = $("#logoRestaurant").val();
+			
+			var horarios = [];
+			
+			var horariosDiv = document.getElementById("horariosDiv");
+			
+			
+			var dias = ["LUNES","MARTES","MIERCOLES","JUEVES","VIERNES","SABADO","DOMINGO"]
+			var contador = 0;
+			
+			var logo = undefined;
+			var ruta_imagenes = undefined;
+			horarios = [];
+			var categorias = [];
+			var notienehorario = false;
+			if(id_restaurante != undefined) {
+				horarios = restauranteSeleccionado.horarios;
+				
+				
+				logo = restauranteSeleccionado.logo;
+				ruta_imagenes = restauranteSeleccionado.ruta_imagenes;
+				categorias = restauranteSeleccionado.categorias;
+				
+				
+				if(horarios.length == 0){
+					notienehorario = true;
+				}
+				
+			}
+			
+			
+			console.log("tiene bhorario");
+			console.log(notienehorario);
+			
+			for(var item of horariosDiv.children){
+				var inputs = item.getElementsByTagName("input");
+				
+				var horario1 =  new Date('1970-01-01T' + inputs[1].value + 'Z')
+				  .toLocaleTimeString({},
+						    {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'})
+				  var horario2 =  new Date('1970-01-01T' + inputs[2].value + 'Z')
+				  .toLocaleTimeString({},
+						    {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'})
+				
+				if(id_restaurante != undefined && !notienehorario){
+					
+					
+				
+					  
+						horarios[contador].horarios = horario1 + " - "+horario2;
+						horarios[contador].abierto = inputs[0].checked;
+						
+						
+						contador = contador + 1;
+				 
+					//horarios.push(obj);
+				}else{
+					
+					var obj = {
+							horarios: horario1 + " - "+horario2,
+							abierto:inputs[0].checked,
+							dia:dias[contador]
+					};
+					
+					contador = contador + 1;
+					horarios.push(obj);
+				}
+			}
+			
+			
+
+			var json = {
+				nombre: nombre,
+				descripcion: descripcion,
+				telefono: telefono,
+				correo: correo,
+				pais: pais,
+				direccion1: calle1,
+				direccion2: calle2,
+				ciudad: ciudad,
+				estado: estado,
+				codigopostal: codigopostal,
+				logo: logo,
+				horarios:horarios,
+				id:id_restaurante,
+				logo:logo,
+				ruta_imagenes:ruta_imagenes,
+				categorias:categorias
+			}
+
+			var jsonenviar = JSON.stringify(json)
+
+			console.log("json a enviar");
+			console.log(jsonenviar)
+			console.log(json);
+			
+			
+
+			$.ajax({
+				url: link,
+				type: "POST",
+				data: jsonenviar,
+				dataType: "json",
+				contentType: "application/json",
+				success: function (result) {
+
+					id_restaurante = result.id;
+
+					$.bootstrapGrowl("Restaurante registrado", { type: 'success', offset: { from: 'bottom', amount: 20 }, width: 350 });
+					var contenedor = document.getElementById("contenedorImagenes");
+					contenedor.style.display = "block";
+
+					var boton = document.getElementById("cargarPrincipal");
+					boton.style.display = "none";
+
+				
+
+					this.empresaActual = result;
+
+					$("#nombreRestauranteSpan").text(result.nombre)
+
+					console.log("Si sirve al dinal de cuentas...");
+
+					var myDropzone = new Dropzone("#logo_picture", {
+						url: /*[[@{/api/restaurantes/logo}]]*/'',
+						maxFiles: 1,
+						addRemoveLinks: true,
+						params: { 'id_restaurante': result.id }
+					});
+
+					var myDropzone = new Dropzone("#photos", {
+						url: /*[[@{/api/restaurantesimagenes/subir}]]*/'',
+						addRemoveLinks: true,
+						params: { 'id_restaurante': result.id }
+					});
+
+				}
+			});
+
+		});
+
+
+		var nuevoRestaurante = function () {
+			var principalContainer = document.getElementById("contenedorPrincipal");
+			var contenedorSecundario = document.getElementById("contenedorFormulario");
+
+
+			principalContainer.style.display = "none";
+			contenedorSecundario.style.display = "block";
+			
+			esModificarEmpresa = false;
+			
+			id_restaurante = undefined;
+
+		}
+
+		var regresar = function () {
+			document.location.href = /*[[@{/administrativo/restaurantes}]]*/'';
+		}
+
+
+		var eliminarRestaurante = function (id_restaurant,elemento) {
+			console.log("Elemento se ejecuta");
+			console.log(id_restaurant);
+			Swal.fire({
+				title: '¿Eliminar restaurante?',
+				text: "Eliminara el restaurante seleccionado incluyendo sus fotos!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Eliminar!'
+			}).then((result) => {
+				if (result.value) {
+
+
+					var link = /*[[@{/api/restaurantes}]]*/'';
+
+					var link = link + "/" + id_restaurant;
+					
+					console.log("El link es el siguiente");
+					console.log(link);
+
+					$.ajax({
+						url: link,
+						type: "DELETE",
+						dataType: "json",
+						contentType: "application/json",
+						success: function (result) {
+							console.log("El hijo es el siguiente");
+							console.log(elemento);
+                            var varElemento = elemento;
+							var hijo = varElemento.parentNode.parentNode;
+							hijo.parentNode.removeChild(hijo);
+
+
+
+							Swal.fire(
+								'Eliminado!',
+								'El restaurante seleccionado a sido eliminado.',
+								'success'
+							);
+
+						}
+					});
+
+
+				}
+			})
+		}
+
+		
+		var restauranteSeleccionado;
+		var esModificarEmpresa = false;
+
+		var modificarRestaurante = function (elemento) {
+			var restaurantes = /*[[${restaurantes}]]*/'';
+			console.log(elemento);
+			restauranteSeleccionado = restaurantes.find(x => x.id == elemento);
+			id_restaurante = restauranteSeleccionado.id;
+			
+			categoriasArreglo = restauranteSeleccionado.categorias;
+			console.log(restauranteSeleccionado);
+			
+			var principalContainer = document.getElementById("contenedorPrincipal");
+			var contenedorSecundario = document.getElementById("contenedorFormulario");
+
+
+			principalContainer.style.display = "none";
+			contenedorSecundario.style.display = "block";
+			
+			esModificarEmpresa = true;
+			
+			document.getElementById("restaurant_name").value = restauranteSeleccionado.nombre;
+			document.getElementById("descripcionRestaurante").value = restauranteSeleccionado.descripcion;
+			document.getElementById("Telephone").value = restauranteSeleccionado.telefono;
+			document.getElementById("Email").value = restauranteSeleccionado.correo;
+			document.getElementById("country").value = restauranteSeleccionado.pais;
+			document.getElementById("street_1").value = restauranteSeleccionado.direccion1;
+			document.getElementById("street_2").value = restauranteSeleccionado.direccion2;
+			document.getElementById("city_booking").value = restauranteSeleccionado.ciudad;
+			document.getElementById("state_booking").value = restauranteSeleccionado.estado;
+			document.getElementById("postal_code").value = restauranteSeleccionado.codigopostal;
+			
+			var contenedor = document.getElementById("contenedorImagenes");
+			contenedor.style.display = "block";
+			
+			
+			
+			var innerHtml = "";
+			var contador = 1;
+			for(var categoria of categoriasArreglo){
+					for(var producto of categoria.listaProducto){
+						var strProducto = JSON.stringify(producto);
+						
+		                innerHtml = innerHtml + "<tr><th scope='row'>"+contador+"</th><td>"+producto.nombre+"</td>"+
+						"<td>"+producto.precio+"</td><td>"+categoria.nombre+"</td>"+"<td><button onClick = 'modificarProducto("+strProducto+",\""+categoria.nombre+"\")' class='btn btn-default'><i class='icon-spin3'></i></button><button onClick = 'eliminarProducto(\""+producto.codigoProducto+"\",this)' class='btn btn-danger'><i class='icon-user-delete'></i></button></td></tr>";
+						contador = contador + 1;
+					}
+
+					
+				
+			}
+			
+			var tablaProductosBody = document.getElementById("tablaBodyProductos");
+			tablaProductosBody.innerHTML = innerHtml;
+			
+			console.log("existe");
+
+			if(myDropzoneLogo != undefined){
+				myDropzoneLogo.destroy();
+				myDropzoneLogo = undefined;
+				console.log(myDropzoneLogo);
+			}
+			
+			myDropzoneLogo = new Dropzone("#logo_picture", {
+				url: /*[[@{/api/restaurantes/logo}]]*/'',
+				maxFiles: 1,
+				addRemoveLinks: true,
+				params: { 'id_restaurante': id_restaurante },
+				init:function(){
+					
+					
+					
+					var mizone = this;
+					
+					var mockfile = {name:"logo",size:512000};
+					
+				  	mizone.emit("addedfile",mockfile);
+					mizone.emit("thumbnail",mockfile,restauranteSeleccionado.logo);
+					mizone.emit("complete",mockfile);
+				}
+			});
+			
+		
+			
+
+		if(myDropzonephotos != undefined){
+			myDropzonephotos.destroy();
+		}
+
+		 myDropzonephotos = new Dropzone("#photos", {
+				url: /*[[@{/api/restaurantesimagenes/subir}]]*/'',
+				addRemoveLinks: true,
+				params: { 'id_restaurante': id_restaurante },
+				init:function(){
+                var mizone = this;
+					
+					
+					for(var item of restauranteSeleccionado.ruta_imagenes){
+						var mockfile = {name:item.substring(item.lastIndexOf("/")+1),size:512000};
+						mizone.emit("addedfile",mockfile);
+						mizone.emit("thumbnail",mockfile,item);
+						mizone.emit("complete",mockfile);
+					}
+				}
+			});
+			
+			
+		 //agregando los horarios
+		 
+		 
+		 var horarios = restauranteSeleccionado.horarios;
+		 for(var item of horarios){
+			 console.log(item);
+			 switch(item.dia){
+			 case "LUNES":
+				 document.getElementById("lunescheck").checked = item.abierto;
+				 cambiando(document.getElementById("lunescheck"));
+				 if(item.abierto){
+					 var dia = item.horarios;
+					 var horafinal = obteniendohoras(dia);
+					 
+					 document.getElementById("timelunes1").value = horafinal.split("-")[0];
+					 document.getElementById("timelunes2").value = horafinal.split("-")[1];
+				 }
+				 break;
+			 case "MARTES":
+				 document.getElementById("martescheck").checked = item.abierto;
+				 cambiando(document.getElementById("martescheck"));
+				 
+				 if(item.abierto){
+					 var dia = item.horarios;
+					 var horafinal = obteniendohoras(dia);
+					 
+					 document.getElementById("timemartes1").value = horafinal.split("-")[0];
+					 document.getElementById("timemartes2").value = horafinal.split("-")[1];
+				 }
+				 break;
+			 case "MIERCOLES":
+				 document.getElementById("miercolesCheck").checked = item.abierto;
+				 cambiando(document.getElementById("miercolesCheck"));
+				 
+				 if(item.abierto){
+					 var dia = item.horarios;
+					 var horafinal = obteniendohoras(dia);
+					 
+					 document.getElementById("timemiercoles1").value = horafinal.split("-")[0];
+					 document.getElementById("timemiercoles2").value = horafinal.split("-")[1];
+				 }
+				 break;
+			 case "JUEVES":
+				 document.getElementById("juevesCheck").checked = item.abierto;
+				 cambiando(document.getElementById("juevesCheck"));
+				 if(item.abierto){
+					 var dia = item.horarios;
+					 var horafinal = obteniendohoras(dia);
+					 
+					 document.getElementById("timejueves1").value = horafinal.split("-")[0];
+					 document.getElementById("timejueves2").value = horafinal.split("-")[1];
+				 }
+				 break;
+			 case "VIERNES":
+				 document.getElementById("viernesCheck").checked = item.abierto;
+				 cambiando(document.getElementById("viernesCheck"));
+				 
+				 if(item.abierto){
+					 var dia = item.horarios;
+					 var horafinal = obteniendohoras(dia);
+					 
+					 document.getElementById("timeviernes1").value = horafinal.split("-")[0];
+					 document.getElementById("timeviernes2").value = horafinal.split("-")[1];
+				 }
+				 break;
+			 case "SABADO":
+				 document.getElementById("sabadoCheck").checked = item.abierto;
+				 cambiando(document.getElementById("sabadoCheck"));
+				 if(item.abierto){
+					 var dia = item.horarios;
+					 var horafinal = obteniendohoras(dia);
+					 
+					 document.getElementById("timesabado1").value = horafinal.split("-")[0];
+					 document.getElementById("timesabado2").value = horafinal.split("-")[1];
+				 }
+				 break;
+			 case "DOMINGO":
+				 document.getElementById("domingoCheck").checked = item.abierto;
+				 cambiando(document.getElementById("domingoCheck"));
+				 
+				 if(item.abierto){
+					 var dia = item.horarios;
+					 var horafinal = obteniendohoras(dia);
+					 
+					 document.getElementById("timedomingo1").value = horafinal.split("-")[0];
+					 document.getElementById("timedomingo2").value = horafinal.split("-")[1];
+				 }
+				 break;
+				 default:
+					 break;
+			 }
+		 }
+		 
+		}
+
+
+		var agregarOpcionProducto = function () {
+
+		
+			
+			
+			var bodyRadio = document.getElementById("bodyRadio");
+			
+			var tr = document.createElement("tr");
+			var td = document.createElement("td");
+			         td.style.width = "20%";
+			         
+			var input = document.createElement("input");
+			input.type = "number"
+			input.className = "form-control";
+			input.placeholder = "+ $3.50";
+			
+			var inputh = document.createElement("input");
+			inputh.value = "0";
+			inputh.type = "hidden";
+			
+			td.appendChild(input);
+			td.appendChild(inputh);
+			
+			tr.appendChild(td);
+			
+			var td = document.createElement("td");
+	         td.style.width = "50%";
+	         
+			var input = document.createElement("input");
+			input.type = "text"
+			input.className = "form-control";
+			input.placeholder = "Opcion";
+	
+			td.appendChild(input);
+			tr.appendChild(td);
+			
+			bodyRadio.appendChild(tr);
+		}
+
+	var agregarMultiProducto = function () {
+			var bodyCheck = document.getElementById("bodyCheck");
+			
+			var tr = document.createElement("tr");
+			var td = document.createElement("td");
+			         td.style.width = "20%";
+			         
+			var input = document.createElement("input");
+			input.type = "number"
+			input.className = "form-control";
+			input.placeholder = "+ $3.50";
+			
+			var inputh = document.createElement("input");
+			inputh.value = "0";
+			inputh.type = "hidden";
+			
+			td.appendChild(input);
+			td.appendChild(inputh);
+			
+			tr.appendChild(td);
+			
+			var td = document.createElement("td");
+	         td.style.width = "50%";
+	         
+			var input = document.createElement("input");
+			input.type = "text"
+			input.className = "form-control";
+			input.placeholder = "Extra";
+	
+			td.appendChild(input);
+			tr.appendChild(td);
+			
+			bodyCheck.appendChild(tr);
+		}   
+
+		
+		var actualizarProducto = function(elemento){
+			
+			document.getElementById("nombreProducto").disabled = true;
+			document.getElementById("precioProducto").disabled = true;
+			document.getElementById("descripcionProducto").disabled = true;
+			document.getElementById("nombreCategoria").disabled = true;
+			document.getElementById("verimagenesProductos").style.display = "block";
+			
+			document.getElementById("btnGuardarProducto").style.display = "block";
+			document.getElementById("btnGuardarProducto").innerText = "Nuevo producto";
+			document.getElementById("btnActualizarProducto").style.display = "none";
+
+			var drop = document.getElementById("verimagenesProductos");
+			var imagenes = drop.getElementsByTagName("img")[0];
+			
+			
+			var nombreProducto = document.getElementById("nombreProducto").value;
+			
+			//Sección de agarrar opciones de producto
+			
+			var desglose = [];
+
+			var bodyRadio = document.getElementById("bodyRadio");
+			var hijos = bodyRadio.children;
+			for (var item of hijos) {
+				var input1 = item.getElementsByTagName("input")[0].value;
+				var input2 = item.getElementsByTagName("input")[1].value;
+				var input3 = item.getElementsByTagName("input")[2].value;
+
+				var objDesglose = {
+					nombre: input3,
+					precio: input1,
+					modoSeleccion: "radio",
+					id_producto: id_restaurante + aleatorio + nombreProducto.replace(/\s/g, ""),
+					id:(input2 == 0)?undefined:input2
+				}
+
+				desglose.push(objDesglose);
+			}
+
+			var bodyRadio = document.getElementById("bodyCheck");
+			var hijos = bodyRadio.children;
+			for (var item of hijos) {
+				var input1 = item.getElementsByTagName("input")[0].value;
+				var input2 = item.getElementsByTagName("input")[1].value;
+				var input3 = item.getElementsByTagName("input")[2].value;
+
+				var objDesglose = {
+					nombre: input3,
+					precio: input1,
+					modoSeleccion: "check",
+					id_producto: id_restaurante + aleatorio + nombreProducto.replace(/\s/g, ""),
+					id:(input2 == 0)?undefined:input2
+				}
+
+				desglose.push(objDesglose);
+			}
+			
+			//------------------
+			
+			
+		   var objProducto = {
+				   codigoProducto: document.getElementById("codigoProducto").value,
+				   nombre:document.getElementById("nombreProducto").value,
+				   descripcion:document.getElementById("descripcionProducto").value,
+				   precio:document.getElementById("precioProducto").value,
+				   id_categoria:aleatorio,
+				   rutaImagen: (imagenes != undefined)? "/productoimagenes/"+imagenes.src.substring(imagenes.src.lastIndexOf("/")+1):undefined,
+				   desglose:desglose
+				   
+		   }
+		   
+		   
+		   console.log(objProducto);
+		    
+			
+		  var jsonEnviar = JSON.stringify(objProducto);
+		  var link = /*[[@{/api/productos}]]*/
+		  console.log("Este es el link de envio");
+		  console.log(link);
+			
+		   $.ajax({
+				url: link,
+				type: "POST",
+				data: jsonEnviar,
+				dataType: "json",
+				contentType: "application/json",
+				success: function (result) {
+					console.log(result);
+					
+					Swal.fire(
+							'Producto actualizado!',
+							'El producto fue actualizado con exito.',
+							'success'
+						)
+					
+				}});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+        var primeravez = false;
+		var guardaProducto = function (valor) {
+			if (!valor.innerText.toString().includes("Guardar")) {
+				valor.innerText = "Guardar"
+
+				document.getElementById("nombreProducto").value = "";
+				document.getElementById("precioProducto").value = "";
+				document.getElementById("descripcionProducto").value = "";
+
+
+				document.getElementById("nombreProducto").disabled = false;
+				document.getElementById("precioProducto").disabled = false;
+				document.getElementById("descripcionProducto").disabled = false;
+				var bodyRadio = document.getElementById("bodyRadio");
+				var bodycheck = document.getElementById("bodyCheck");
+				document.getElementById("verimagenesProductos").style.display = "none";
+				
+				
+				bodyRadio.innerHTML = "";
+				bodycheck.innerHTML = "";
+				return;
+			} else {
+
+				document.getElementById("nombreProducto").disabled = true;
+				document.getElementById("precioProducto").disabled = true;
+				document.getElementById("descripcionProducto").disabled = true;
+				document.getElementById("nombreCategoria").disabled = true;
+				document.getElementById("verimagenesProductos").style.display = "block";
+
+				valor.innerText = "Nuevo Producto";
+				
+				
+			}
+
+
+			//Obteniendo datos principales
+
+			var nombreCategoria = document.getElementById("nombreCategoria").value;
+			var nombreProducto = document.getElementById("nombreProducto").value;
+			var precioProducto = document.getElementById("precioProducto").value;
+			var descripcionProducto = document.getElementById("descripcionProducto").value;
+
+			if (nuevaCategoriaBool == true) {
+				console.log("ENTRA A NUEVA CATEGORIA");
+				aleatorio = Math.random().toString().substring(2, 8)
+				listaProducto = [];
+				nuevaCategoriaBool = false;
+				primeravez = true;
+			}
+
+			console.log("la clave categoria");
+			console.log(aleatorio);
+
+			var desglose = [];
+
+			var bodyRadio = document.getElementById("bodyRadio");
+			var hijos = bodyRadio.children;
+			for (var item of hijos) {
+				var input1 = item.getElementsByTagName("input")[0].value;
+				var input2 = item.getElementsByTagName("input")[1].value;
+				var input3 = item.getElementsByTagName("input")[2].value;
+
+				var objDesglose = {
+					nombre: input3,
+					precio: input1,
+					modoSeleccion: "radio",
+					id_producto: id_restaurante + aleatorio + nombreProducto.replace(/\s/g, "")
+				}
+
+				desglose.push(objDesglose);
+			}
+
+			var bodyRadio = document.getElementById("bodyCheck");
+			var hijos = bodyRadio.children;
+			for (var item of hijos) {
+				var input1 = item.getElementsByTagName("input")[0].value;
+				var input2 = item.getElementsByTagName("input")[1].value;
+				var input3 = item.getElementsByTagName("input")[2].value;
+
+				var objDesglose = {
+					nombre: input3,
+					precio: input1,
+					modoSeleccion: "check",
+					id_producto: id_restaurante + aleatorio + nombreProducto.replace(/\s/g, "")
+				}
+
+				desglose.push(objDesglose);
+			}
+
+			var producto = {
+
+				codigoProducto: id_restaurante + aleatorio + nombreProducto.replace(/\s/g, ""),
+				nombre: nombreProducto,
+				descripcion: descripcionProducto,
+				desglose: desglose,
+				id_categoria: aleatorio,
+				precio: precioProducto,
+				rutaImagen:null
+			}
+
+			listaProducto.push(producto);
+          
+			
+		
+  
+
+
+			var jsonEnviarProducto = {
+
+				id: aleatorio,
+				nombre: nombreCategoria,
+				id_restaurante: id_restaurante,
+				listaProducto: listaProducto
+			};
+
+
+			console.log(jsonEnviarProducto);
+
+			var jsonEnviar;
+
+			var link;
+			
+			
+			
+			if(primeravez){
+				jsonEnviar = JSON.stringify(jsonEnviarProducto);
+				link = /*[[@{/api/categorias}]]*/'';
+				categoriasArreglo.push(jsonEnviarProducto);
+				primeravez = false;
+			}else{
+				jsonEnviar =  JSON.stringify(producto);
+				link = /*[[@{/api/productos}]]*/''; 
+			}
+			
+			
+			console.log("********insertando tabla**************");
+			
+			console.log(categoriasArreglo);
+			
+			
+			
+			//--------------------insertando en la tabla
+			
+			
+			var innerHtml = "";
+			var contador = 1;
+			for(var categoria of categoriasArreglo){
+					for(var producto of categoria.listaProducto){
+						var strProducto = JSON.stringify(producto);
+						
+		                innerHtml = innerHtml + "<tr><th scope='row'>"+contador+"</th><td>"+producto.nombre+"</td>"+
+						"<td>"+producto.precio+"</td><td>"+categoria.nombre+"</td>"+"<td><button onClick = 'modificarProducto("+strProducto+",\""+categoria.nombre+"\")' class='btn btn-default'><i class='icon-spin3'></i></button><button onClick = 'eliminarProducto(\""+producto.codigoProducto+"\",this)' class='btn btn-danger'><i class='icon-user-delete'></i></button></td></tr>";
+						contador = contador + 1;
+					}
+
+					
+				
+			}
+			
+			var tablaProductosBody = document.getElementById("tablaBodyProductos");
+			tablaProductosBody.innerHTML = innerHtml;
+			
+			
+			//---------------------
+
+			$.ajax({
+				url: link,
+				type: "POST",
+				data: jsonEnviar,
+				dataType: "json",
+				contentType: "application/json",
+				success: function (result) {
+
+
+
+
+
+					Swal.fire(
+						'Producto insertado!',
+						'El producto fue insertado con exito.',
+						'success'
+					)
+
+
+					$('#myModal').modal({
+						show: 'true'
+					});
+
+					console.log("ESTA ES EL MYDROPZONE");
+
+					console.log(myDropzonemenuitempic);
+					if (myDropzonemenuitempic == undefined) {
+						console.log("ENTRA DONDE ESTA EL UNDEFINED");
+						
+						myDropzonemenuitempic = new Dropzone(".menu-item-pic", {
+							url: /*[[@{/api/categorias/productos/imagen/subir}]]*/'',
+							maxFiles: 1,
+							addRemoveLinks: true,
+							params: { 'id_producto': id_restaurante + aleatorio + nombreProducto.replace(/\s/g, "") },
+							success: function(file, response){
+								
+						        
+						        console.log("PRIMER DROPZONE");
+						        console.log(producto);
+						        
+						        producto.rutaImagen = response.resultado;
+						        
+						    }
+						});
+					} else {
+						
+						myDropzonemenuitempic.destroy();
+						
+// 						myDropzonemenuitempic.removeAllFiles();
+// 						myDropzonemenuitempic.options.params = { 'id_producto': id_restaurante + aleatorio + nombreProducto.replace(/\s/g, "") };
+
+						myDropzonemenuitempic = new Dropzone(".menu-item-pic", {
+							url: /*[[@{/api/categorias/productos/imagen/subir}]]*/'',
+							maxFiles: 1,
+							addRemoveLinks: true,
+							params: { 'id_producto': id_restaurante + aleatorio + nombreProducto.replace(/\s/g, "") },
+							success: function(file, response){
+								console.log("segundo DROPZONE");
+						        console.log(producto);
+						        producto.rutaImagen = response.resultado;   
+						        
+						    }
+						});
+
+					}
+
+
+
+
+				}
+			});
+
+		}
+
+		var myDropzonemenuitempic;
+
+
+		var nuevaCategoria = function () {
+			document.getElementById("nombreProducto").value = "";
+			document.getElementById("precioProducto").value = "";
+			document.getElementById("descripcionProducto").value = "";
+			document.getElementById("nombreCategoria").value = "";
+
+			document.getElementById("nombreProducto").disabled = false;
+			document.getElementById("precioProducto").disabled = false;
+			document.getElementById("descripcionProducto").disabled = false;
+			document.getElementById("nombreCategoria").disabled = false;
+			document.getElementById("verimagenesProductos").style.display = "none";
+			
+			var bodyRadio = document.getElementById("bodyRadio");
+			var bodycheck = document.getElementById("bodyCheck");
+			
+			bodyRadio.innerHTML = "";
+			bodycheck.innerHTML = "";
+			
+			document.getElementById("btnGuardarProducto").style.display = "block";
+			document.getElementById("btnActualizarProducto").style.display = "none";
+			
+			
+			var valor = document.getElementById("btnGuardarProducto")
+
+			valor.innerText = "Guardar"
+
+			nuevaCategoriaBool = true;
+
+		}
+		
+		
+		var eliminarOpcionProducto = function(elemento){
+			
+			var bodyRadio = document.getElementById("bodyRadio");
+			
+			
+			var hijos = bodyRadio.childNodes;
+
+			var hijoElemento = hijos[hijos.length-1];
+      
+			bodyRadio.removeChild(hijoElemento);
+			
+		}
+
+		var eliminarMultiProducto = function(elemento){
+			
+			var bodyRadio = document.getElementById("bodyCheck");
+			var hijos = bodyRadio.childNodes;
+
+			var hijoElemento = hijos[hijos.length-1];
+   
+			bodyRadio.removeChild(hijoElemento);
+			
+		}
+		
+		
+		var modificarProducto = function(producto,categoria){
+			
+			document.getElementById("btnGuardarProducto").style.display = "none";
+			document.getElementById("btnActualizarProducto").style.display = "block";
+			document.getElementById("nombreCategoria").disabled = true;
+			document.getElementById("nombreProducto").disabled = true;
+			document.getElementById("precioProducto").disabled = false;
+			document.getElementById("descripcionProducto").disabled = false;
+			
+			
+			
+			document.getElementById("verimagenesProductos").style.display = "block";
+			
+			document.getElementById("nombreCategoria").value = categoria;
+			document.getElementById("nombreProducto").value = producto.nombre;
+			document.getElementById("precioProducto").value = producto.precio;
+			document.getElementById("descripcionProducto").value = producto.descripcion;
+			document.getElementById("codigoProducto").value = producto.codigoProducto;
+			
+			
+			document.getElementById("bodyRadio").innerHTML = "";
+			document.getElementById("bodyCheck").innerHTML = "";;
+			for(var item of producto.desglose){
+				var bodyRadio = document.getElementById("bodyRadio");
+				var bodyCheck = document.getElementById("bodyCheck");
+				
+				
+				
+				
+				var tr = document.createElement("tr");
+				var td = document.createElement("td");
+				td.style.width = "20%";
+			var input = document.createElement("input");
+				input.type = "number";
+				input.className = "form-control";
+				input.placeholder = "+ $2.50";
+				input.value = item.precio;
+			var inputhiden = document.createElement("input");
+			    inputhiden.value = item.id;
+			    inputhiden.type = "hidden"
+			td.appendChild(input);
+			td.appendChild(inputhiden);
+			
+			tr.appendChild(td);
+			
+			var td = document.createElement("td");
+			td.style.width = "50%";
+		var input = document.createElement("input");
+			input.type = "text";
+			input.className = "form-control";
+			input.placeholder = (item.modoSeleccion == "radio")?"Opcion":"Extras";
+			input.value = item.nombre;
+		td.appendChild(input);
+		tr.appendChild(td);
+		
+		  if(item.modoSeleccion == "radio"){
+			  bodyRadio.appendChild(tr);
+		  }else{
+			  bodyCheck.appendChild(tr);
+		  }
+				
+				
+			}
+			
+			
+			aleatorio = producto.id_categoria;
+			nuevaCategoriaBool = false;
+			
+			
+			console.log("eliminando mi filesss...");
+			
+			var verimagenesProductos = document.getElementById("verimagenesProductos");
+			verimagenesProductos.innerHTML = "<input name='file' type='file'><div class='dz-default dz-message'><span>Click o Arrastrar <br>las imagenes aqui</span></div>";
+			
+			
+			if(myDropzonemenuitempic != undefined){
+				myDropzonemenuitempic.destroy();
+			}
+			myDropzonemenuitempic = new Dropzone(".menu-item-pic", {
+				url: /*[[@{/api/categorias/productos/imagen/subir}]]*/'',
+				maxFiles: 1,
+				addRemoveLinks: true,
+				params: { 'id_producto': id_restaurante + aleatorio + producto.nombre.replace(/\s/g, "") },
+				init:function(){
+					var mizone = this;
+					
+					var mockfile = {name:producto.rutaImagen.substring(producto.rutaImagen.lastIndexOf("/")+1),size:512000};
+					
+				  	mizone.emit("addedfile",mockfile);
+					mizone.emit("thumbnail",mockfile,producto.rutaImagen);
+					mizone.emit("complete",mockfile);
+				},
+				success: function(file, response){
+					
+			        
+			        console.log("PRIMER DROPZONE");
+			        console.log(producto);
+			        
+			        producto.rutaImagen = response.resultado;
+			        
+			    }
+			});
+			
+			
+		}
+		
+		
+		var eliminarProducto = function(producto,elemento){
+		  console.log(producto);
+		  
+		  var url = /*[+ [[@{/api/productos/}]] + producto +]*/;
+		  console.log(url);
+		  
+		  Swal.fire({
+			  title: 'Aviso',
+			  text: "¿Deseas eliminar el producto?",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Eliminar'
+			}).then((result) => {
+			  if (result.value) {
+				  
+				  
+				  $.ajax({
+						url: url,
+						type: "DELETE",
+						dataType: "json",
+						contentType: "application/json",
+						success: function (result) {
+							console.log(result);
+
+							var hijo = elemento.parentNode.parentNode;
+							var padre = elemento.parentNode.parentNode.parentNode;
+							
+							padre.removeChild(hijo);
+                             
+
+							Swal.fire(
+								'Eliminado!',
+								'El restaurante seleccionado a sido eliminado.',
+								'success'
+							);
+
+						}
+					});
+			  }
+			})
+				  
+		  
+		}
+		
+
+	</script>
+
+	<script th:src="@{~/js/jquery.bootstrap-growl.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script type="text/javascript" th:src="@{~/js/panel.js}"></script>
+</body>
+
+</html>
